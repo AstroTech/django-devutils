@@ -1,0 +1,52 @@
+# Byte-compiled
+__pycache__/
+*.pyc
+
+# Distribution / packaging
+build/
+dist/
+downloads/
+eggs/
+lib/
+lib64/
+sdist/
+*.egg-info/
+*.egg
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+.sonar
+.scannerwork
+
+# Translations
+#*.mo
+*.pot
+
+# Django stuff:
+*.log
+local_settings.py
+*.sqlite
+*.sqlite3
+_static
+_media
+
+# Sphinx documentation
+docs/_build/
+
+# virtualenv
+venv/
+virtualenv/
+
+# IDE
+.idea
+
+# Skip files and directories
+tmp/
