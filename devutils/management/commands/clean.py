@@ -34,4 +34,4 @@ class Command(BaseCommand):
 
         self.write('Load fixtures')
         for filename in os.listdir('fixtures'):
-            management.call_command('loaddata', f'fixtures/{filename}', verbosity=2)
+            management.call_command('loaddata', f'fixtures/{filename}', verbosity=2, ignorenonexistent=True)
