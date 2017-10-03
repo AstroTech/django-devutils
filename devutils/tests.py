@@ -44,4 +44,5 @@ class Test(TestCase):
                 self.logger.error(f'{msg:5} {response.status_code} {url}')
                 errors.append(url)
 
-        raise AssertionError(f'HTTP errors {errors}')
+        if errors:
+            raise AssertionError(f'HTTP errors {errors}')
