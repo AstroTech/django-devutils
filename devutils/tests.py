@@ -3,6 +3,11 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 
 
+logging.basicConfig(
+    level=logging.INFO,
+    format='[%(asctime).19s] %(levelname)s %(message)s')
+
+
 class Test(TestCase):
 
     assert_http_status = [
