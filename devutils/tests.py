@@ -24,13 +24,14 @@ class Test(TestCase):
 
     def test_url(self):
         for row in self.assert_http_status:
-            url = row['url']
-            status = row['status']
-            response = self.client.get(url)
 
             if row.get('skip'):
                 logging.warning(f'SKIPPED: {url}')
                 continue
+
+            url = row['url']
+            status = row['status']
+            response = self.client.get(url)
 
             if response.status_code == status:
                 self.logger.info(f'OK {status} {url}')
