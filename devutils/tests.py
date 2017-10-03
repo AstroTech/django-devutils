@@ -5,7 +5,7 @@ from django.test import TestCase
 
 logging.basicConfig(
     level=logging.INFO,
-    format='[%(asctime).19s] %(levelname).3s %(message)s')
+    format='[%(asctime).19s] %(levelname).4s %(message)s')
 
 
 class Test(TestCase):
@@ -29,7 +29,7 @@ class Test(TestCase):
 
             if row.get('skip'):
                 msg = 'skip'
-                logging.warning(f'{msg:5}: {url}')
+                logging.warning(f'{msg:4} {url}')
                 continue
 
             url = row['url']
@@ -37,11 +37,9 @@ class Test(TestCase):
             response = self.client.get(url)
 
             if response.status_code == status:
-                msg = 'good'
-                self.logger.info(f'{msg:5} {status} {url}')
+                self.logger.info(f'{response.status_code:4} {url}')
             else:
-                msg = 'error'
-                self.logger.error(f'{msg:5} {response.status_code} {url}')
+                self.logger.error(f'{response.status_code:4} {url}')
                 errors.append(url)
 
         if errors:
