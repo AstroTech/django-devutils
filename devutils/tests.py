@@ -5,7 +5,7 @@ from django.test import TestCase
 
 logging.basicConfig(
     level=logging.INFO,
-    format='[%(asctime).19s] %(levelname)s %(message)s')
+    format='[%(asctime).19s] %(levelname).3s %(message)s')
 
 
 class Test(TestCase):
@@ -23,10 +23,13 @@ class Test(TestCase):
         self.user.delete()
 
     def test_url(self):
+        errors = []
+
         for row in self.assert_http_status:
 
             if row.get('skip'):
-                logging.warning(f'SKIPPED: {url}')
+                msg = 'skip'
+                logging.warning(f'{msg:5}: {url}')
                 continue
 
             url = row['url']
@@ -34,7 +37,11 @@ class Test(TestCase):
             response = self.client.get(url)
 
             if response.status_code == status:
-                self.logger.info(f'OK {status} {url}')
+                msg = 'good'
+                self.logger.info(f'{msg:5} {status} {url}')
             else:
-                self.logger.error(f'{response.status_code} {url}')
-                raise AssertionError(f'HTTP {response.status_code} for "{url}"')
+                msg = 'error'
+                self.logger.error(f'{msg:5} {response.status_code} {url}')
+                errors.append(url)
+
+        raise AssertionError(f'HTTP errors {errors}')
