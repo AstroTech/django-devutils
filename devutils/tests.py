@@ -4,8 +4,9 @@ from django.test import TestCase
 
 
 class Test(TestCase):
-    fixtures = ['fixtures/auth.user.json']
-    assert_http_200 = ['/']
+
+    assert_http_status = [
+    ]
 
     def setUp(self):
         self.logger = logging.getLogger(__name__)
@@ -16,12 +17,14 @@ class Test(TestCase):
         self.client.logout()
         self.user.delete()
 
-    def test_http_200(self):
-        for url in self.assert_http_200:
+    def test_url(self):
+        for row in self.assert_http_status:
+            url = row['url']
+            status = row['status']
             response = self.client.get(url)
 
-            if response.status_code != 200:
+            if response.status_code == status:
+                self.logger.info(f'{status} {url}')
+            else:
                 self.logger.error(f'{response.status_code} {url}')
                 raise AssertionError(f'HTTP {response.status_code} for "{url}"')
-            else:
-                self.logger.info(f'{response.status_code} {url}')
