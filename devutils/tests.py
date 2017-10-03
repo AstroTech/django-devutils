@@ -23,8 +23,12 @@ class Test(TestCase):
             status = row['status']
             response = self.client.get(url)
 
+            if row.get('skip'):
+                logging.warning(f'SKIPPED: {url}')
+                continue
+
             if response.status_code == status:
-                self.logger.info(f'{status} {url}')
+                self.logger.info(f'OK {status} {url}')
             else:
                 self.logger.error(f'{response.status_code} {url}')
                 raise AssertionError(f'HTTP {response.status_code} for "{url}"')
