@@ -26,14 +26,14 @@ class Test(TestCase):
         errors = []
 
         for row in self.assert_http_status:
+            url = row['url']
+            status = row['status']
 
             if row.get('skip'):
                 msg = 'skip'
                 logging.warning(f'{msg:4} {url}')
                 continue
 
-            url = row['url']
-            status = row['status']
             response = self.client.get(url)
 
             if response.status_code == status:
