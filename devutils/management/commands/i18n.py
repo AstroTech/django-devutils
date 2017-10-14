@@ -15,4 +15,4 @@ class Command(BaseCommand):
         for app in settings.INSTALLED_APPS:
             if app.startswith(PROJECT_NAME) and app not in SKIP:
                 path = app.replace('.', '/')
-                self.stdout.write(path)
+                self.stdout.write(f'cd {path} && django-admin makemessages -l pl -l en -l de -l fr && cd -')
